@@ -1,0 +1,14 @@
+{
+  "name": "bookstack-api",
+  "version": "1.0.0",
+  "description": "The API for a full-stack book-tracking app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matthew Anderson",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
