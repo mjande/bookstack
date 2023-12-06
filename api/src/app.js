@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 
+import BooksRouter from "./routes/BooksRouter.js";
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -20,6 +22,8 @@ try {
 app.get("/", (req, res) => {
   res.json({ msg: "Hello world!" });
 });
+
+app.use("/api/books", BooksRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
