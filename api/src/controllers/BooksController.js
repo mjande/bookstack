@@ -11,8 +11,11 @@ export async function getAllBooks(req, res, next) {
 
 export async function createBook(req, res, next) {
   try {
-    console.log("Creating book.");
-    res.json({ newBook: "my new book" });
+    const newBook = new Book(req.body);
+    console.log(newBook);
+    newBook.save();
+
+    res.json(newBook);
   } catch (error) {
     next(error);
   }
