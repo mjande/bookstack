@@ -19,11 +19,12 @@ try {
   console.log(err);
 }
 
-app.get("/", (req, res) => {
-  res.json({ msg: "Hello world!" });
-});
-
 app.use("/api/books", BooksRouter);
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something went wrong!");
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
