@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import BooksRouter from "./routes/BooksRouter.js";
+import RecordsRouter from "./routes/RecordsRouter.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,7 @@ try {
 }
 
 app.use("/api/books", BooksRouter);
+app.use("/api/records", RecordsRouter);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
