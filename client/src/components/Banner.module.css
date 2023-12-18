@@ -1,0 +1,9 @@
+.Banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0;
+  height: 10%;
+  width: 100%;
+  border-bottom: black 2px solid;
+}
