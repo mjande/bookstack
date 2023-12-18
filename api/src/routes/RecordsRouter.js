@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import {
   getAllRecords,
   createRecord,
@@ -6,7 +6,7 @@ import {
   deleteRecordById,
 } from "../controllers/RecordsController.js";
 
-const router = express.Router();
+const router = Router();
 
 // Get all records
 router.get("/", getAllRecords);

@@ -26,10 +26,9 @@ export const getBookbyId = AsyncHandler(async (req, res) => {
   const book = await Book.findById(req.params.id);
 
   if (!book) {
-    console.log(
-      `${new Date().toLocaleString()}: Book with ID ${req.params.id} not found`
-    );
-    return res.status(404).json({ message: "Book not found." });
+    const timestamp = new Date().toLocaleString();
+    console.log(`${timestamp}: Book with ID ${req.params.id} not found`);
+    return res.status(404).json({ timestamp, message: "Book not found." });
   }
 
   res.json(book);

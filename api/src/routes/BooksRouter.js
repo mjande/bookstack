@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import {
   createBook,
   getAllBooks,
@@ -6,21 +6,22 @@ import {
   updateBookById,
   deleteBookById,
 } from "../controllers/BooksController.js";
-const router = express.Router();
+import { authenticateJWT } from "../utils/auth.js";
+const router = Router();
 
 // Get all books
 router.get("/", getAllBooks);
 
 // Create a book
-router.post("/", createBook);
+router.post("/", authenticateJWT, createBook);
 
 // Get a  book
 router.get("/:id", getBookbyId);
 
 // Update a book
-router.put("/:id", updateBookById);
+router.put("/:id", authenticateJWT, updateBookById);
 
 // Delete a book
-router.delete("/:id", deleteBookById);
+router.delete("/:id", authenticateJWT, deleteBookById);
 
 export default router;
