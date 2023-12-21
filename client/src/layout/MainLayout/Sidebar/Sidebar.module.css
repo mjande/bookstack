@@ -1,0 +1,6 @@
+.Sidebar {
+  height: 100%;
+  width: 20vw;
+  min-width: 200px;
+  border-right: black 2px solid;
+}

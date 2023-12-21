@@ -1,16 +1,18 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Root from "./layout/Root";
-
+import MainLayout from "./layout/MainLayout/MainLayout.jsx";
 import Home from "./pages/Home";
-import Books from "./pages/Books";
+import BookList from "./pages/BookList/BookList.jsx";
 
 import "./App.css";
+import theme from "./theme.js";
+import { ThemeProvider } from "@emotion/react";
+import { CssBaseline } from "@mui/material";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <MainLayout />,
     children: [
       {
         path: "/",
@@ -18,14 +20,24 @@ const router = createBrowserRouter([
       },
       {
         path: "/books",
-        element: <Books />,
+        element: <BookList />,
+        loader: async () => {
+          const response = await fetch("http://localhost:3000/api/books");
+          console.log(response);
+          return response;
+        },
       },
     ],
   },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  );
 }
 
 export default App;

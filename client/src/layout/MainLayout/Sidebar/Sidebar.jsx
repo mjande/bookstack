@@ -4,9 +4,9 @@ import styles from "./Sidebar.module.css";
 
 function Sidebar() {
   return (
-    <div className={styles.Sidebar}>
+    <nav className={styles.Sidebar}>
       <Link to="/books">All Books</Link>
-    </div>
+    </nav>
   );
 }
 
