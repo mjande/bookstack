@@ -16,8 +16,6 @@ export async function userRegistrationAction({ request }) {
 
   if (response.status == 201) {
     return redirect("/");
-  } else {
-    console.log("didn't work");
   }
 
   return null;
