@@ -1,17 +1,21 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 import MainLayout from "./layout/MainLayout/MainLayout.jsx";
-import Home from "./pages/Home";
-import BookList from "./pages/BookList/BookList.jsx";
+import Home from "./routes/Home.jsx";
+import BookList from "./routes/Books/Books.jsx";
 
 import "./App.css";
 import theme from "./theme.js";
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
+import BookForm from "./routes/BookForm/BookForm.jsx";
+import UserRegistration from "./routes/Users/UserRegistration.jsx";
+import { userRegistrationAction } from "./routes/Users/actions.js";
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <MainLayout />,
     children: [
       {
@@ -19,13 +23,20 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "/users/register",
+        element: <UserRegistration />,
+        action: userRegistrationAction,
+      },
+      {
         path: "/books",
         element: <BookList />,
         loader: async () => {
-          const response = await fetch("http://localhost:3000/api/books");
-          console.log(response);
-          return response;
+          return fetch("http://localhost:3000/api/books");
         },
+      },
+      {
+        path: "/books/new",
+        element: <BookForm />,
       },
     ],
   },
@@ -34,8 +45,10 @@ const router = createBrowserRouter([
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <RouterProvider router={router} />
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <CssBaseline />
+        <RouterProvider router={router} />
+      </LocalizationProvider>
     </ThemeProvider>
   );
 }
