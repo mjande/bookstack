@@ -9,7 +9,12 @@ export const registerUser = AsyncHandler(async (req, res) => {
 
   const user = new User({ username, password: hashedPassword });
   await user.save();
-  res.status(201).json({ message: "New user created." });
+
+  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY, {
+    expiresIn: "1h",
+  });
+
+  res.status(201).json({ message: "New user created.", token });
 
   console.log("New user created.");
 });

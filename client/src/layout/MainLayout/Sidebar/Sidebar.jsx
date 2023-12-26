@@ -6,9 +6,9 @@ import styles from "./Sidebar.module.css";
 function Sidebar() {
   return (
     <nav className={styles.Sidebar}>
-      <RouterLink to="/books">
-        <MaterialLink>All Books</MaterialLink>
-      </RouterLink>
+      <MaterialLink component={RouterLink} to="/books">
+        All Books
+      </MaterialLink>
     </nav>
   );
 }
