@@ -51,6 +51,8 @@ form {
   flex-direction: column;
   padding: 3rem;
   gap: 1.5rem;
+
+  width: 40vw;
 }
 
 button {

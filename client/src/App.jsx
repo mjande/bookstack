@@ -11,12 +11,11 @@ import theme from "./theme.js";
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
 import BookForm from "./routes/Books/BookForm.jsx";
-import UserRegistration from "./routes/Users/UserRegistration.jsx";
+import UserForm from "./routes/Users/UserForm.jsx";
 import {
   userRegistrationAction,
   userLoginAction,
 } from "./routes/Users/actions.js";
-import UserLogin from "./routes/Users/UserLogin.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,12 +27,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/users/register",
-        element: <UserRegistration />,
+        element: <UserForm action="register" />,
         action: userRegistrationAction,
       },
       {
         path: "/users/login",
-        element: <UserLogin />,
+        element: <UserForm action="login" />,
         action: userLoginAction,
       },
       {
