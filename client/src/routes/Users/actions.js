@@ -43,3 +43,23 @@ export async function userLoginAction({ request }) {
   console.log(responseData.message || "Something went wrong");
   return null;
 }
+
+export async function editUser({ request }) {
+  const formData = Object.fromEntries(await request.formData());
+
+  const response = await fetch("http://localhost:3000/api/users", {
+    method: "PUT",
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+
+  if (response.status == 200) {
+    return redirect("/");
+  }
+
+  console.log("Something went wrong");
+  return null;
+}

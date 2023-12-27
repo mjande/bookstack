@@ -15,6 +15,7 @@ import UserForm from "./routes/Users/UserForm.jsx";
 import {
   userRegistrationAction,
   userLoginAction,
+  editUser,
 } from "./routes/Users/actions.js";
 
 const router = createBrowserRouter([
@@ -34,6 +35,20 @@ const router = createBrowserRouter([
         path: "/users/login",
         element: <UserForm action="login" />,
         action: userLoginAction,
+      },
+      {
+        path: "/users/edit",
+        element: <UserForm action="edit" />,
+        loader: async () => {
+          const response = await fetch("http://localhost:3000/api/users", {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+              "Content-Type": "application/json",
+            },
+          });
+          return response;
+        },
+        action: editUser,
       },
       {
         path: "/books",

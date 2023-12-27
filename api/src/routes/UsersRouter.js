@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   registerUser,
   loginUser,
+  editUser,
   updateUser,
   deleteUser,
 } from "../controllers/UsersController.js";
@@ -17,6 +18,9 @@ router.post("/login", loginUser);
 
 // Logout handled by removing reference to token on client-side (no server-side
 // action necessary)
+
+// Edit user (returns user information used for filling form fields on frontend)
+router.get("", editUser);
 
 // Update user
 router.put("/", authenticateJWT, updateUser);
