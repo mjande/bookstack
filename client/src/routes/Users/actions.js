@@ -21,27 +21,29 @@ export async function userRegistrationAction({ request }) {
   return null;
 }
 
-export async function userLoginAction({ request }) {
-  const formData = Object.fromEntries(await request.formData());
-  console.log(formData);
+export function userLoginAction(setCurrentUser) {
+  return async ({ request }) => {
+    const formData = Object.fromEntries(await request.formData());
 
-  const response = await fetch("http://localhost:3000/api/users/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  });
+    const response = await fetch("http://localhost:3000/api/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
 
-  const responseData = await response.json();
+    const responseData = await response.json();
 
-  if (response.status == 200) {
-    localStorage.setItem("accessToken", responseData);
-    return redirect("/");
-  }
+    if (response.status == 200) {
+      localStorage.setItem("accessToken", responseData);
+      setCurrentUser(formData.username);
+      return redirect("/");
+    }
 
-  console.log(responseData.message || "Something went wrong");
-  return null;
+    console.log(responseData.message || "Something went wrong");
+    return null;
+  };
 }
 
 export async function editUser({ request }) {

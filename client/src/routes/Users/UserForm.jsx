@@ -3,7 +3,7 @@ import { Button, Card, TextField } from "@mui/material";
 import { useState } from "react";
 
 export default function UserRegistration({ action }) {
-  const [username, setUsername] = useState(useLoaderData()?.username);
+  const [username, setUsername] = useState(useLoaderData()?.username || "");
 
   function handleInput(event) {
     setUsername(event.target.value);

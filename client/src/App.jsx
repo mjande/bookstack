@@ -17,62 +17,69 @@ import {
   userLoginAction,
   editUser,
 } from "./routes/Users/actions.js";
+import { createContext, useState } from "react";
 
-const router = createBrowserRouter([
-  {
-    element: <MainLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/users/register",
-        element: <UserForm action="register" />,
-        action: userRegistrationAction,
-      },
-      {
-        path: "/users/login",
-        element: <UserForm action="login" />,
-        action: userLoginAction,
-      },
-      {
-        path: "/users/edit",
-        element: <UserForm action="edit" />,
-        loader: async () => {
-          const response = await fetch("http://localhost:3000/api/users", {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-              "Content-Type": "application/json",
-            },
-          });
-          return response;
-        },
-        action: editUser,
-      },
-      {
-        path: "/books",
-        element: <BookList />,
-        loader: async () => {
-          return fetch("http://localhost:3000/api/books");
-        },
-      },
-      {
-        path: "/books/new",
-        element: <BookForm />,
-      },
-    ],
-  },
-]);
+export const AuthContext = createContext(null);
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  const router = createBrowserRouter([
+    {
+      element: <MainLayout setCurrentUser={setCurrentUser} />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+        {
+          path: "/users/register",
+          element: <UserForm action="register" />,
+          action: userRegistrationAction,
+        },
+        {
+          path: "/users/login",
+          element: <UserForm action="login" />,
+          action: userLoginAction(setCurrentUser),
+        },
+        {
+          path: "/users/edit",
+          element: <UserForm action="edit" />,
+          loader: async () => {
+            const response = await fetch("http://localhost:3000/api/users", {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                "Content-Type": "application/json",
+              },
+            });
+            return response;
+          },
+          action: editUser,
+        },
+        {
+          path: "/books",
+          element: <BookList />,
+          loader: async () => {
+            return fetch("http://localhost:3000/api/books");
+          },
+        },
+        {
+          path: "/books/new",
+          element: <BookForm />,
+        },
+      ],
+    },
+  ]);
+
   return (
-    <ThemeProvider theme={theme}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <CssBaseline />
-        <RouterProvider router={router} />
-      </LocalizationProvider>
-    </ThemeProvider>
+    <AuthContext.Provider value={currentUser}>
+      <ThemeProvider theme={theme}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <CssBaseline />
+          <RouterProvider router={router} />
+        </LocalizationProvider>
+      </ThemeProvider>
+    </AuthContext.Provider>
   );
 }
 
