@@ -1,6 +1,6 @@
 import { redirect } from "react-router-dom";
 
-export async function userRegistrationAction({ request }) {
+export async function register({ request }) {
   const formData = await request.formData();
   const dataObject = Object.fromEntries(formData);
 
@@ -21,7 +21,7 @@ export async function userRegistrationAction({ request }) {
   return null;
 }
 
-export function userLoginAction(setCurrentUser) {
+export function login(setCurrentUser) {
   return async ({ request }) => {
     const formData = Object.fromEntries(await request.formData());
 
@@ -46,7 +46,7 @@ export function userLoginAction(setCurrentUser) {
   };
 }
 
-export async function editUser({ request }) {
+export async function edit({ request }) {
   const formData = Object.fromEntries(await request.formData());
 
   const response = await fetch("http://localhost:3000/api/users", {

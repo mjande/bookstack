@@ -6,10 +6,12 @@ import { useContext } from "react";
 import { AuthContext } from "../../../App";
 
 function Banner({ setCurrentUser }) {
+  // Get current user from context
   const currentUser = useContext(AuthContext);
 
-  function handleLogout(e) {
-    e.preventDefault();
+  // Update data for current user (stored in localStorage and user state) on
+  // logout
+  function handleLogout() {
     localStorage.removeItem("accessToken");
     setCurrentUser(null);
   }

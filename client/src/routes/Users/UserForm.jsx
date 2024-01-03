@@ -1,14 +1,27 @@
-import { Form, useLoaderData } from "react-router-dom";
+import { Form } from "react-router-dom";
 import { Button, Card, TextField } from "@mui/material";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../../App";
 
 export default function UserRegistration({ action }) {
-  const [username, setUsername] = useState(useLoaderData()?.username || "");
+  // Get current user from context
+  const currentUser = useContext(AuthContext);
 
+  // Create form state
+  const [formData, setFormData] = useState({
+    username: currentUser || "",
+    password: "",
+  });
+
+  // Update form state based on form input
   function handleInput(event) {
-    setUsername(event.target.value);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [event.target.name]: event.target.value,
+    }));
   }
 
+  // Customize instructions based on route
   let heading, instructions, buttonText;
 
   if (action == "login") {
@@ -37,9 +50,15 @@ export default function UserRegistration({ action }) {
             label="Username"
             name="username"
             onInput={handleInput}
-            value={username}
+            value={formData.username}
           />
-          <TextField label="Password" name="password" type="password" />
+          <TextField
+            label="Password"
+            name="password"
+            type="password"
+            onInput={handleInput}
+            value={formData.password}
+          />
           <Button variant="contained" type="submit">
             {buttonText}
           </Button>
