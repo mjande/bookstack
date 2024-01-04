@@ -50,7 +50,7 @@ function App() {
         {
           path: "/books",
           element: <Books />,
-          loader: bookLoaders.getAll(),
+          loader: bookLoaders.getAll,
         },
         {
           path: "/books/new",

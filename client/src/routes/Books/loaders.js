@@ -1,3 +1,3 @@
 export async function getAll() {
-  return fetch("http://localhost:3000/api/books");
+  return await fetch("http://localhost:3000/api/books");
 }
